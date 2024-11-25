@@ -1,22 +1,17 @@
 import express from 'express';
-import cors from 'cors';
-import connectDB from './Database/mongo.js';  // Asegúrate de importar correctamente el archivo
+import dotenv from 'dotenv';
+import connectDB from './Database/mongo.js'; // Ruta de tu archivo mongo.js
+import userRoutes from './routes/userRoutes.js'; // Ruta de las rutas para usuarios
+
+dotenv.config(); // Cargar variables de entorno
 
 const app = express();
+app.use(express.json()); // Para procesar JSON
 
-// Middleware
-app.use(cors());
-app.use(express.json()); // Para parsear JSON
+connectDB(); // Conectar a MongoDB
 
-// Conectar a MongoDB
-connectDB();  // Llamar a la función para conectar a la base de datos
+// Rutas
+app.use('/api/users', userRoutes);
 
-// Usar las rutas de usuario
-import userRoutes from './routes/userRoutes.js';  // Asegúrate de incluir la extensión .js
-app.use('/api', userRoutes);
-
-// Configurar el puerto
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

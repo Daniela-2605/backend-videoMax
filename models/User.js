@@ -1,25 +1,14 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  nombre: {
-    type: String,
-    required: true,
-  },
-  correo: {
-    type: String,
-    required: true,
-    unique: true, // Esto garantiza que no haya usuarios con el mismo correo
-  },
-  fechaNacimiento: {
-    type: Date,
-    required: true,
-  },
-  contrasena: {
-    type: String,
-    required: true,
-  },
+  nombre: { type: String, required: true },
+  correo: { type: String, required: true, unique: true },
+  fechaNacimiento: { type: Date, required: true },
+  contrasena: { type: String, required: true },
 });
 
-const User = mongoose.model('User', userSchema);
+// Especificamos manualmente la colección 'users'
+const User = mongoose.model('User', userSchema, 'users');
 
-export default User;  // Cambia esto a 'export default'
+export default User;
+

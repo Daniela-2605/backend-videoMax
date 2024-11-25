@@ -1,7 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs'; // Para encriptar la contraseña
-import User from '../models/User.js';  // Asegúrate de que la extensión .js esté incluida
-// Asegúrate de usar la extensión .js
+import User from '../models/User.js'; // Asegúrate de que este modelo esté bien configurado
 
 const router = express.Router();
 
@@ -31,10 +30,9 @@ router.post('/register', async (req, res) => {
       contrasena: hashedPassword,
     });
 
-    // Guardar el usuario en la base de datos
+    // Guardar el usuario en la colección 'users'
     await newUser.save();
 
-    // Responder con éxito
     res.status(201).json({ message: 'Usuario registrado con éxito' });
   } catch (error) {
     console.error(error);
@@ -42,5 +40,5 @@ router.post('/register', async (req, res) => {
   }
 });
 
-export default router; // Usa export default en lugar de module.exports
+export default router;
 
